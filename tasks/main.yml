@@ -48,6 +48,21 @@
   tags:
     - always
 
+- name: Fact for apache module shibboleth to be installed
+  set_fact:
+    keystone_sp_apache_mod_shib:
+      "{{ (keystone_sp != {} and
+      (keystone_sp.apache_mod is undefined or
+      (keystone_sp.apache_mod is defined and keystone_sp.apache_mod != 'mod_auth_openidc'))
+      ) | ternary('true', 'false') }}"
+
+- name: Fact for apache module mod_auth_openidc to be installed
+  set_fact:
+    keystone_sp_apache_mod_auth_openidc:
+      "{{ (keystone_sp != {} and
+      keystone_sp.apache_mod is defined and keystone_sp.apache_mod == 'mod_auth_openidc')
+      | ternary('true', 'false') }}"
+
 - import_tasks: db_setup.yml
   when:
     - "keystone_services['keystone-wsgi-public']['group'] in group_names"
@@ -123,8 +138,9 @@
   tags:
     - keystone-config
 
-- import_tasks: keystone_federation_sp_setup.yml
-  when: keystone_sp != {}
+- import_tasks: keystone_federation_sp_shib_setup.yml
+  when:
+    - keystone_sp_apache_mod_shib
   tags:
     - keystone-config
 

@@ -51,7 +51,8 @@ keystone_idp_distro_packages:
   - xmlsec1
 
 keystone_sp_distro_packages:
-  - shibboleth-sp
+  - "{{ keystone_sp_apache_mod_auth_openidc | ternary('apache2-mod_auth_openidc',
+                                                      'shibboleth-sp') }}"
 
 keystone_developer_mode_distro_packages:
   - "{{ (ansible_distribution_version is version ('42', '>=')) | ternary('patterns-openSUSE-devel_basis', 'patterns-devel-base-devel_basis') }}"
@@ -85,7 +86,9 @@ keystone_apache_modules:
   - name: "ssl"
     state: "{{ (keystone_ssl | bool) | ternary('present', 'absent') }}"
   - name: "shib2"
-    state: "{{ ( keystone_sp != {} ) | ternary('present', 'absent') }}"
+    state: "{{ keystone_sp_apache_mod_shib | ternary('present', 'absent') }}"
+  - name: "auth_openidc"
+    state: "{{ keystone_sp_apache_mod_auth_openidc | ternary('present', 'absent') }}"
   - name: "proxy"
     state: "present"
   - name: "proxy_http"

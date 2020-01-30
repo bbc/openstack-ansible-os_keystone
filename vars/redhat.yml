@@ -50,7 +50,8 @@ keystone_idp_distro_packages:
   - xmlsec1
 
 keystone_sp_distro_packages:
-  - shibboleth
+  - "{{ keystone_sp_apache_mod_auth_openidc | ternary('mod_auth_openidc',
+                                                      'shibboleth') }}"
 
 keystone_developer_mode_distro_packages:
   - gcc

@@ -329,6 +329,7 @@ keystone_idp: {}
 keystone_sp: {}
 #keystone_sp:
 #  cert_duration_years: 5
+#  apache_mod: shibboleth  #or mod_auth_openidc
 #  trusted_dashboard_list:
 #    - "https://{{ external_lb_vip_address }}/auth/websso/"
 #    - "https://{{ horizon_server_name }}/auth/websso/"
@@ -425,6 +426,34 @@ keystone_sp: {}
 #          attributes:
 #            - name: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn'
 #              id: upn
+#
+#    - name: "keycloak-oidc-idp"
+#      oidc_provider_metadata_url: https://identity-provider/.well-known/openid-configuration
+#      oidc_client_id: keystone
+#      oidc_client_secret: secret
+#      oidc_crypto_passphrase: random string
+#      oidc_redirect_uri: https://keystone:5000/v3/OS-FEDERATION/identity_providers/keycloak-idp/protocols/openid/auth
+#      entity_ids:
+#        - 'https://identity-provider/openid-endpoint/'
+#      federated_identities:
+#        - domain: default
+#          project: fedproject
+#          group: fedgroup
+#          role: _member_
+#      protocols:
+#        - name: openid
+#          mapping:
+#            name: keycloak-oidc-idp-openid-mapping
+#            rules:
+#              - remote:
+#                  - type: OIDC-email
+#                local:
+#                  - group:
+#                      name: fedgroup
+#                      domain:
+#                        name: Default
+#                    user:
+#                      name: '{0}'
 
 keystone_service_in_ldap: false
 
