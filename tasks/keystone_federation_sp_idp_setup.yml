@@ -96,7 +96,7 @@
       os_user_role:
         cloud: default
         state: present
-        group_name: "{{ item.group }}"
+        group: "{{ item.group }}"
         project: "{{ item.project }}"
         role: "{{ item.role | default('_member_') }}"
         interface: admin
