@@ -45,7 +45,10 @@ Listen {{ keystone_service_port }}
     OIDCRedirectURI {{ keystone_sp.trusted_idp_list.0.oidc_redirect_uri }}
     {% if keystone_sp.trusted_idp_list.0.oidc_auth_verify_jwks_uri is defined -%}
     OIDCOAuthVerifyJwksUri {{ keystone_sp.trusted_idp_list.0.oidc_auth_verify_jwks_uri }}
-    {% endif %}
+    {% endif -%}
+    {% if keystone_sp.trusted_idp_list.0.oidc_outgoing_proxy is defined -%}
+    OIDCOutgoingProxy {{ keystone_sp.trusted_idp_list.0.oidc_outgoing_proxy }}
+    {% endif -%}
 
     <Location /v3/OS-FEDERATION/identity_providers/{{ keystone_sp.trusted_idp_list.0.name }}/protocols/openid/auth>
       Require valid-user
