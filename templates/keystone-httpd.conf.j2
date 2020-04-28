@@ -49,6 +49,10 @@ Listen {{ keystone_service_port }}
     {% if keystone_sp.trusted_idp_list.0.oidc_outgoing_proxy is defined -%}
     OIDCOutgoingProxy {{ keystone_sp.trusted_idp_list.0.oidc_outgoing_proxy }}
     {% endif -%}
+    {% if keystone_cache_servers | length > 0 -%}
+    OIDCCacheType memcache
+    OIDCMemCacheServers "{{ keystone_cache_servers | join(' ') }}"
+    {% endif %}
 
     <Location /v3/OS-FEDERATION/identity_providers/{{ keystone_sp.trusted_idp_list.0.name }}/protocols/openid/auth>
       Require valid-user
