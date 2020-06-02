@@ -53,6 +53,9 @@ Listen {{ keystone_service_port }}
     OIDCCacheType memcache
     OIDCMemCacheServers "{{ keystone_cache_servers | join(' ') }}"
     {% endif %}
+    {% if keystone_sp.trusted_idp_list.0.oidc_auth_request_params is defined -%}
+    OIDCAuthRequestParams {{ keystone_sp.trusted_idp_list.0.oidc_auth_request_params }}
+    {% endif %}
 
     <Location /v3/OS-FEDERATION/identity_providers/{{ keystone_sp.trusted_idp_list.0.name }}/protocols/openid/auth>
       Require valid-user
