@@ -127,6 +127,7 @@
         idp_name: "{{ item.name }}"
         idp_remote_ids: "{{ item.entity_ids }}"
         idp_enabled: true
+        idp_domain_id: "{{ item.domain_id | default(omit) }}"
         login_user: "{{ keystone_admin_user_name }}"
         login_password: "{{ keystone_auth_admin_password }}"
         login_project_name: "{{ keystone_admin_tenant_name }}"

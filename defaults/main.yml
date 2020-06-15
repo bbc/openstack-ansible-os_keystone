@@ -336,6 +336,7 @@ keystone_sp: {}
 #  trusted_idp_list:
 #    note that only one of these is supported at any one time for now
 #    - name: "keystone-idp"
+#      domain_id: "default"
 #      entity_ids:
 #         - 'https://keystone-idp:5000/v3/OS-FEDERATION/saml2/idp'
 #      metadata_uri: 'https://keystone-idp:5000/v3/OS-FEDERATION/saml2/metadata'
