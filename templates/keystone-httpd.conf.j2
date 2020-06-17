@@ -56,6 +56,12 @@ Listen {{ keystone_service_port }}
     {% if keystone_sp.trusted_idp_list.0.oidc_auth_request_params is defined -%}
     OIDCAuthRequestParams {{ keystone_sp.trusted_idp_list.0.oidc_auth_request_params }}
     {% endif %}
+    {% if keystone_sp.trusted_idp_list.0.oidc_state_max_number_of_cookies is defined -%}
+    OIDCStateMaxNumberOfCookies {{ keystone_sp.trusted_idp_list.0.oidc_state_max_number_of_cookies }}
+    {% endif %}
+    {% if keystone_sp.trusted_idp_list.0.oidc_default_url is defined -%}
+    OIDCDefaultURL {{ keystone_sp.trusted_idp_list.0.oidc_default_url }}
+    {% endif %}
 
     <Location /v3/OS-FEDERATION/identity_providers/{{ keystone_sp.trusted_idp_list.0.name }}/protocols/openid/auth>
       Require valid-user
