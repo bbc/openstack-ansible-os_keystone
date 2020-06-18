@@ -337,6 +337,7 @@ keystone_sp: {}
 #    note that only one of these is supported at any one time for now
 #    - name: "keystone-idp"
 #      domain_id: "default"
+#      display_name: "Keystone IDP" # Optional, used in Horizon IDP dropdown
 #      entity_ids:
 #         - 'https://keystone-idp:5000/v3/OS-FEDERATION/saml2/idp'
 #      metadata_uri: 'https://keystone-idp:5000/v3/OS-FEDERATION/saml2/metadata'
